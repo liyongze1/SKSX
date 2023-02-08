@@ -14,7 +14,7 @@ import Content from "./content/Content.vue";
 import Menu from "./menu/Menu.vue";
 
 export default {
-  components: { Menu, Content },
+  components: { Menu, Content},
 };
 </script>
 

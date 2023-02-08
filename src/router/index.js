@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Layout from "@/views/layout/Layout.vue"
+import Layout from "../views/layout/Layout.vue"
 import Login from "@/views/login/Login.vue"
 import Product from "../views/layout/content/product/Product.vue"
-const Home = () => import('../views/layout/content/tworoute/Home.vue')
+import Home from '../views/layout/content/tworoute/Home.vue'
 //产品管理
 const Chanpin = () => import("../views/layout/content/product/product_list/Chanpin.vue")
 const Chanpin_two = () => import("../views/layout/content/product/product_list/Chanpin_two.vue")
@@ -27,8 +27,8 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'layout',
     component: Layout,
+    redirect:"/home",
     children: [
       {
         path: "/home",

@@ -3,7 +3,7 @@
     <el-row class="tac">
       <el-col :span="12">
         <el-menu
-          :default-active="this.$route.path"
+          :default-active="$route.path"
           class="el-menu-vertical-demo"
           background-color="#112f50"
           text-color="#fff"
@@ -22,7 +22,7 @@
 
           <el-submenu index="/product">
             <template slot="title">
-              <i class="el-icon-location"></i>
+              <i class="iconfont icon-chanpinguanli"></i>
               <span>产品管理</span>
             </template>
             <el-menu-item-group>
@@ -32,7 +32,7 @@
           </el-submenu>
           <el-submenu index="/order">
             <template slot="title">
-              <i class="el-icon-menu"></i>
+              <i class="iconfont icon-qian4"></i>
               <span slot="title">订单管理</span>
             </template>
             <el-menu-item-group>
