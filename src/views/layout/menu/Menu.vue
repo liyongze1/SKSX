@@ -20,55 +20,44 @@
             <span class="home">首页</span>
           </el-menu-item>
 
-          <el-submenu index="">
+          <el-submenu index="/product">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>产品管理</span>
             </template>
             <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="/product">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
+              <el-menu-item index="/product/chanpin">产品列表</el-menu-item>
+              <el-menu-item index="/product/chanpin_two">产品分类</el-menu-item>
             </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="1-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="1-4-1">选项1</el-menu-item>
-            </el-submenu>
           </el-submenu>
-          <el-submenu index="">
+          <el-submenu index="/order">
             <template slot="title">
               <i class="el-icon-menu"></i>
               <span slot="title">订单管理</span>
             </template>
             <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="/product">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
+              <el-menu-item index="/order/order_two">选项1</el-menu-item>
+              <el-menu-item index="/order/order_three">选项2</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-submenu index="">
+          <el-submenu index="/advertisement">
             <template slot="title">
               <i class="el-icon-document"></i>
               <span slot="title">广告分类</span>
             </template>
             <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="/product">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
+              <el-menu-item index="/advertisement/advertisement_two">选项1</el-menu-item>
+              <el-menu-item index="/advertisement/advertisement_three">选项2</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-submenu index="">
+          <el-submenu index="/system">
             <template slot="title">
               <i class="el-icon-setting"></i>
               <span slot="title">系统管理</span>
             </template>
             <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="/product">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
+              <el-menu-item index="/system/system_two">选项1</el-menu-item>
+              <el-menu-item index="/system/system_three">选项2</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
