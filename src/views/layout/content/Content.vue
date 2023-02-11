@@ -49,8 +49,8 @@ export default {
   height: 100%;
   padding-left: 200px;
   // transform:translatey(200px) 1s;
-  transition:0.2s ease-in
-  
+  transition:0.2s ease-in;
+  background-color: #999;
 }
 .right_header{
   height: 100%;

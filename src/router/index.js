@@ -4,6 +4,7 @@ import Layout from "../views/layout/Layout.vue"
 import Login from "@/views/login/Login.vue"
 import Product from "../views/layout/content/product/Product.vue"
 import Home from '../views/layout/content/tworoute/Home.vue'
+import index from '../views/layout/content/product/propsAdd/Index.vue'
 //产品管理
 const Chanpin = () => import("../views/layout/content/product/product_list/Chanpin.vue")
 const Chanpin_two = () => import("../views/layout/content/product/product_list/Chanpin_two.vue")
@@ -38,16 +39,25 @@ const routes = [
       , {
         path: "/product",
         name: "product",
+        redirect: '/product/chanpin',
         component: Product,
         children:[{
           path: "chanpin",
           name: "chanpin",
-          component: Chanpin
+          component: Chanpin,
+        },
+        {
+          path:"addgoods",
+          name:"addgoods",
+          component:index,
+          meta:{//配置高亮标识
+            activeMenu:"/product/chanpin"
+          }
         },
         {
           path: "chanpin_two",
           name: "chanpin_two",
-          component: Chanpin_two
+          component: Chanpin_two,
         },
       ]
       },

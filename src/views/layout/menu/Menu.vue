@@ -3,7 +3,7 @@
     <el-row class="tac">
       <el-col :span="12">
         <el-menu
-          :default-active="$route.path"
+          :default-active="active"
           class="el-menu-vertical-demo"
           background-color="#112f50"
           text-color="#fff"
@@ -70,11 +70,29 @@
 export default {
   data() {
     return {
+      active:"",
       isShow: false,
     };
   },
+  //监听路由变化添加高亮色
+  watch:{
+    $route(to,from){
+      let{meta,path}=to
+      if(meta.activeMenu){
+        this.active=meta.activeMenu
+      }else{
+        this.active=path
+      }
+    }
+  },
   //控制收缩和回放
   created() {
+    if(this.$route.meta.activeMenu){
+        this.active=this.$route.meta.activeMenu
+      }else{
+        this.active=this.$route.path
+      }
+      console.log(this.$route)
     this.$bus.$on("isShow", (e) => {
       this.isShow = !e;
     });

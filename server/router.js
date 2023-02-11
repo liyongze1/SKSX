@@ -140,11 +140,12 @@ router.get("/home/orderinfo", (req, res) => {
  */
 router.get("/goods/projectList", (req, res) => {
   const page = req.query.page || 1;
+  const num=20;
   const sqlLen = "select * from project where id";
   sqlFn(sqlLen, null, (data) => {
     let len = data.length;
     const sql =
-      "select * from project order by id desc limit 8 offset " + (page - 1) * 8;
+      "select * from project order by id desc limit 8 offset "+ (page - 1) * 8;
     sqlFn(sql, null, (result) => {
       if (result.length > 0) {
         res.send({

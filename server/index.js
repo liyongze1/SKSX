@@ -6,6 +6,8 @@ app.use(express.urlencoded({ extended: true }))
 //资源共享---只有打包的时候再去共享资源 研发不共享
 // const cors = require('cors')
 // app.use(cors())
+//静态文件托管
+app.use(express.static("upload"))
 //路由--产品
 const router = require("./router")
 //订单

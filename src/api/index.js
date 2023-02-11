@@ -8,6 +8,29 @@ const api={
     //月销售的数据
     monthData(){
         return axios.get(base.monthData)
+    },
+    //商品列表表格的数据
+    projectList(params){
+        return axios.get(base.projectList,{params})
+    },
+    //删除商品接口
+    delProjectList(params){
+        return axios.get(base.delProjectList,{params})
+    },
+    //搜索商品的接口
+    searchGoods(params){
+        return axios.get(base.searchGoods,{params})
+    },
+    //类目接口
+    classList(params){
+        return axios.get(base.classList,{params})
+    },
+    //上传图片接口
+    // image(image){
+    //     return axios.post(base.images,image)
+    // }
+    addGoods(params){
+        return axios.get(base.addGoods,{params})
     }
 }
 export default api
