@@ -321,6 +321,7 @@ router.post('/batchUpload', upload.single('file'), function (req, res, next) {
   const sql = "insert into project(title, image, sellPoint, price, cid, category, num, descs, paramsInfo) values (?,?,?,?,?,?,?,?,?)"
   var arr = [title, image, sellPoint, price, cid, category, num, descs, paramsInfo];
   sqlFn(sql, arr, result => {
+    console.log(sql);
       if (result.affectedRows > 0) {
           res.send({
               status: 200,

@@ -74,6 +74,7 @@ export default {
       isShow: false,
     };
   },
+  
   //监听路由变化添加高亮色
   watch:{
     $route(to,from){

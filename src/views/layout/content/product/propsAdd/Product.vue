@@ -196,7 +196,9 @@ export default {
           console.log(this.ruleForm)
           let {title, image, sellPoint, price, cid, category, num, descs}=this.ruleForm
           //image数组类型转换为字符串
-          this.addGoods({title, image:JSON.stringify(image), sellPoint, price, cid, category, num, descs})
+          this.addGoods({title, 
+            image:JSON.stringify(image), 
+             sellPoint, price, cid, category, num, descs})
           // alert("submit!");
         } else {
           console.log("error submit!!");

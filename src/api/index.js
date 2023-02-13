@@ -30,6 +30,7 @@ const api={
     //     return axios.post(base.images,image)
     // }
     addGoods(params){
+        console.log(params);
         return axios.get(base.addGoods,{params})
     }
 }

@@ -4,7 +4,7 @@
       <div class="right_header_icon">
         <div class="el-icon-s-fold" style="font-size:30px; line-height: 50px;" v-if="isShow" @click="showChange">
         </div>
-        <div class="el-icon-s-unfold" style="font-size:30px;line-height: 50px;" v-else @click="blockChange"></div>
+        <div class="el-icon-s-unfold" style="font-size:30px;line-height: 50px;" v-else @click="showChange"></div>
       </div>
       <div class="right_header_info">
         <ul class="right_header_content">
@@ -32,12 +32,7 @@ export default {
   methods:{
     showChange(){
       this.isShow=!(this.isShow);
-      this.small=true
-      this.$bus.$emit("isShow",this.isShow)
-    },
-    blockChange(){
-      this.isShow=!(this.isShow);
-      this.small=false
+      this.small=!this.small 
       this.$bus.$emit("isShow",this.isShow)
     },
   }

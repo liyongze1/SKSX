@@ -46,6 +46,8 @@
         tooltip-effect="dark"
         style="width: 100%"
         @selection-change="handleSelectionChange"
+        @select="select"
+        @select-all="select_all"
         border
         stripe
       >
@@ -131,7 +133,7 @@ export default {
       isShow3:"",
       //用户输入的数据
       searchData: "",
-      total: 10,
+      total: 0,
       pagesize: 1,
       value1: "",
       //网络请求数据
@@ -147,14 +149,26 @@ export default {
       if (!ne) {
         console.log("跳转啦");
         let page = this.page - 1;
-        this.projectList(page);
+        if(this.total>1){
+          //不渲染页面停在当前页面
+          this.pagesize=1
+        }else{
+          this.projectList(page);
+        }
       }
     },
   },
   created() {
     this.projectList();
+    console.log(this.page,this.total)
   },
   methods: {
+    select_all(selection){
+      console.log("全选的数据",selection)
+    },
+    select(selection, row){
+    console.log("当前行的数据",row)
+  },
     addGoods(){
       this.$router.push("/product/addgoods")
     },
@@ -199,6 +213,7 @@ export default {
     删除表格数据的方法*/
     async delProjectList(id) {
       console.log(id);
+      //删除当前页
       let delProjectList = await this.$api.delProjectList({ id });
       console.log("删除数据", delProjectList.data);
       if (delProjectList.data.status === 200) {
