@@ -26,9 +26,9 @@ const api={
         return axios.get(base.classList,{params})
     },
     //上传图片接口
-    // image(image){
-    //     return axios.post(base.images,image)
-    // }
+    image(image){
+        return axios.post(base.images,image)
+    },
     addGoods(params){
         console.log(params);
         return axios.get(base.addGoods,{params})

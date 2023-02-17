@@ -72,7 +72,7 @@
         :data="DetailsForm"
         :fields="json_fields"
         :header="title"
-        name="需要导出的表格名字.xls"
+        name="商品信息.xls"
       >
         <!-- 上面可以自定义自己的样式，还可以引用其他组件button -->
         <el-button type="success" @click="derive">导出</el-button>
@@ -87,7 +87,7 @@
         ref="sel"
         @selection-change="change"
       >
-        <el-table-column  type="selection"  />
+        <el-table-column  type="selection" ref="one" :selectable="selectable"/>
         <el-table-column
           prop="code"
           label="订单编号"
@@ -134,7 +134,6 @@
       @handData="orderTable"
     ></Pangination>
     <Drawer ref="drawer" :drawerSize="drawerSize"></Drawer>
-    <input type="checkbox" disabled checked/>
   </div>
 </template>
 
@@ -177,7 +176,7 @@ export default {
         "订单总价格":"price",
         "汇总状态":"huizongStatus",
       },//映射字段
-      title:"",//表格标题
+      title:"商品信息",//表格标题
       //抽屉大小
       dt:false,
       drawerSize: 0,
@@ -221,7 +220,10 @@ export default {
   methods: {
     //导出提示
     derive(){
-    
+    this.$message({
+      type:"success",
+      message:"导出成功"
+    })
     },
     //点击打开抽屉
     orderDecs() {
@@ -237,9 +239,9 @@ export default {
     4. 编号随机生成
     */
     orderGther() {
-      this.DetailsForm.map(item=>{
-        this.$refs.sel.toggleRowSelection(item,true)
-        // console.log();
+      this.DetailsForm.map(row=>{
+        console.log();
+        this.$refs.sel.toggleRowSelection(row,true)
       })
       if (this.getherDataID.length >= 2) {
         //获取当前选中的订单 提交汇总订单  修改视图
@@ -269,19 +271,16 @@ export default {
       this.getherDataID = arr;
     },
     //禁用按钮
-    // selectable(row, index) {
-      // if (row.huizongStatus == 1) {
-      //   return true;
-      // } else {
-      //   return false;
-      // }
-    // },
+    selectable(row, index) {
+      console.log(row)
+      if (row.huizongStatus == 1) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     ide(a) {
       console.log(a);
-    },
-    filter(value, row, colum){
-      console.log("row------------------",row)
-      return true
     },
     //订单列表的数据
     async orderTable(page = 1) {
@@ -291,13 +290,6 @@ export default {
         (this.tableData = res.data.data),
           (this.total = res.data.total),
           (this.pageSize = res.data.pageSize);
-        console.log(res.data,'this.tableData',this.tableData);
-        this.tableData.forEach(row=>{
-          console.log(22222);
-          this.$refs.sel.toggleRowSelection(row);
-        // this.$refs.sel.toggleRowSelection(item,true)
-        // console.log();
-      })
       } else {
         this.tableData = [];
       }

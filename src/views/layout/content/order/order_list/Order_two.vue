@@ -64,8 +64,19 @@
       </div>
     </div>
     <div class="oreder_midst">
-      <el-button type="primary" class="aaaa">导出</el-button>
-      <el-button type="danger" class="bbbb" @click="batches">批量撤销</el-button>
+      <download-excel
+        class="export-excel-wrapper btnRevoke"
+        :data="DetailsForm"
+        :fields="json_fields"
+        :header="title"
+        name="商品信息.xls"
+      >
+        <!-- 上面可以自定义自己的样式，还可以引用其他组件button -->
+        <el-button type="success" @click="derive">导出</el-button>
+      </download-excel>
+      <el-button type="danger" class="btnRevoke" @click="batches"
+        >批量撤销</el-button
+      >
     </div>
     <div class="order_table">
       <el-table
@@ -109,7 +120,11 @@
         </el-table-column>
       </el-table>
     </div>
-    <Pangination :total="total" :pageSize="pageSize" @handData="orderList"></Pangination>
+    <Pangination
+      :total="total"
+      :pageSize="pageSize"
+      @handData="orderList"
+    ></Pangination>
   </div>
 </template>
 
@@ -121,6 +136,10 @@ export default {
   },
   data() {
     return {
+      //导出
+      DetailsForm:[{}], //导出数据
+      json_fields:{},//每列开头
+      title:"商品信息",
       pageSize: 1,
       total: 10,
       //输入框
@@ -145,13 +164,13 @@ export default {
         },
       ],
       //表格数据显示
-      tableData: [],
+      tableData: [{}],
       //点击按钮前判断
       btn: 1,
       //批量撤销
-      batchesRevoke:[],
+      batchesRevoke: [],
       //当前页
-      page:1,
+      page: 1,
     };
   },
   created() {
@@ -160,22 +179,25 @@ export default {
   beforeDestroy() {
     this.$bus.$off("handData");
   },
-  watch:{
-    tableData(val){
-      if(!val){
-        if(this.page>1){
-          let a=this.page-1
-          this.orderList(a)
-        }else{
-          this.orderList(1)
+  watch: {
+    tableData(val) {
+      if (!val) {
+        if (this.page > 1) {
+          let a = this.page - 1;
+          this.orderList(a);
+        } else {
+          this.orderList(1);
         }
       }
-    }
+    },
   },
   methods: {
+    derive(){
+      
+    },
     //获取汇总清单的列表
-    async orderList(page=1) {
-      this.page=page
+    async orderList(page = 1) {
+      this.page = page;
       let res = await this.$api.orderList({ page });
       console.log(res);
       if (res.status == 200) {
@@ -189,51 +211,51 @@ export default {
     //撤销汇总
     revoke(scope) {
       console.log(this.batchesRevoke);
-      if(this.batchesRevoke.length>=2){
+      if (this.batchesRevoke.length >= 2) {
         this.$notify({
-          title: '当前选择多条数据建议批量撤销',
+          title: "当前选择多条数据建议批量撤销",
           dangerouslyUseHTMLString: true,
-          customClass:"tishi",
+          customClass: "tishi",
           message: '<input type="checkbox" name="rido" id:"show"/>不再提示',
-          onClose(){
+          onClose() {
             // let a=document.querySelector("#show")
             // if(a.checked){
             //   let b=document.querySelector("tishi")
             //   b.style.display="none"
             // }
-          }
+          },
         });
       }
-      this.orderCancel(scope.row.id)
-      console.log("当前行的id-------------",scope.row.id)
+      this.orderCancel(scope.row.id);
+      console.log("当前行的id-------------", scope.row.id);
     },
     selectionChange(selection) {
       //批量撤销
-      let sele=[]
-      selection.map(item=>{
+      let sele = [];
+      selection.map((item) => {
         sele.push(item.id);
-      })
-      this.batchesRevoke=sele
+      });
+      this.batchesRevoke = sele;
     },
     //批量撤销
-    batches(){
-      this.batchesRevoke.map(item=>{
-        this.orderCancel(item)
-      })
-      this.orderList(this.page)
+    batches() {
+      this.batchesRevoke.map((item) => {
+        this.orderCancel(item);
+      });
+      this.orderList(this.page);
     },
-    async orderCancel(id){
-      let res= await this.$api.orderCancel({id})
-      if(res.data.status==200){
+    async orderCancel(id) {
+      let res = await this.$api.orderCancel({ id });
+      if (res.data.status == 200) {
         this.$message({
-          message:"撤销成功",
-          type:"success"
-        })
-        this.orderList(this.page)
-      }else{
-        this.$message.error("撤销失败")
+          message: "撤销成功",
+          type: "success",
+        });
+        this.orderList(this.page);
+      } else {
+        this.$message.error("撤销失败");
       }
-    }
+    },
   },
 };
 </script>
@@ -285,6 +307,10 @@ export default {
     .isCenter {
       text-align: center;
     }
+  }
+  .btnRevoke{
+    margin-right: 20px;
+    display: inline-block;
   }
 }
 </style>
