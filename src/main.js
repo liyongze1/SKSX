@@ -6,6 +6,8 @@ import './plugins/element.js'
 import "./assets/css/rest.css"
 import api from "./api/index.js"
 import moment from "moment"
+import JsonExcel from 'vue-json-excel'
+Vue.component('downloadExcel',JsonExcel)
 Vue.config.productionTip = false
 const bus=new Vue();
 Vue.prototype.$bus=bus

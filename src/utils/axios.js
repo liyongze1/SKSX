@@ -2,7 +2,7 @@ import axios from "axios";
 import qs from "querystring"
 const instance=axios.create({
     //请求的时间毫秒数
-    timeout:5000,
+    timeout:10000,
 })
 instance.interceptors.request.use(function (config) {
     //参数能判断请求的方式url等一些信息

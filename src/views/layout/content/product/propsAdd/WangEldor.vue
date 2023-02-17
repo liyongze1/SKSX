@@ -19,12 +19,17 @@
 
 <script>
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
+import { mapState } from "vuex";
 export default {
   components: { Editor, Toolbar},
+  computed:{
+    //读取vuex的数据
+    ...mapState("rowData",["rowState"])
+  },
   data() {
     return {
       editor: null,
-      html: "<p>hello</p>",
+      html: "",
       toolbarConfig: {
         //上边工具栏的配置
         toolbarKeys:  [
@@ -38,6 +43,12 @@ export default {
     };
   },
   created(){
+    //判断仓库有没有数据
+    if(Object.keys(this.rowState).length>0){
+      this.html=this.rowState.descs
+    }else{
+      this.html=""
+    }
   },
   methods: {
     onChange() {

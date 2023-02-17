@@ -13,7 +13,7 @@
 
 <script>
 import Product from './Product.vue'
-import AddGoods from "./AddGoods.vue"
+import AddGoods from "./AddGoodsmy.vue"
 export default {
   components: { AddGoods, Product },
 

@@ -1,4 +1,4 @@
-import { Switch } from "element-ui";
+
 
 //处理数据html标签显示界面
 export function removeHTMLTag(htmlStr){

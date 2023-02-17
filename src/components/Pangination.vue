@@ -34,7 +34,6 @@ export default {
   },
   methods: {
     handleSizeChange(val) {
-      console.log(this.projectSize);
       console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {

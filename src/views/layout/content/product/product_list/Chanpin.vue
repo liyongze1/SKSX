@@ -35,8 +35,12 @@
         </div>
       </div>
       <div class="product_ac">
-        <el-button type="warning el-icon-plus" @click="addGoods">添加商品</el-button>
-        <el-button type="danger el-icon-delete">批量删除</el-button>
+        <el-button type="warning el-icon-plus" @click="addGoods"
+          >添加商品</el-button
+        >
+        <el-button type="danger el-icon-delete" @click="delAll"
+          >批量删除</el-button
+        >
       </div>
     </div>
     <div class="product_tab">
@@ -80,7 +84,7 @@
           </template>
         </el-table-column>
         <el-table-column
-          prop="title"
+          prop="sellPoint"
           label="商品卖点"
           width="120"
           align="center"
@@ -94,6 +98,8 @@
         <el-table-column prop="address" label="操作" width="200" align="center">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" class="el-icon-edit"
+            
+            @click="edit(scope.row)"
               >编辑</el-button
             >
             <el-button
@@ -117,20 +123,14 @@
 
 <script>
 import Pangination from "@/components/Pangination.vue";
-import { removeHTMLTag,color } from "@/utils/index.js";
+import { removeHTMLTag} from "@/utils/index.js";
+import { mapMutations } from "vuex";
 export default {
   components: { Pangination },
-  // computed:{
-  //   isShow1:function(){
-  //     return {
-  //       color:color(this.$route.path)
-  //     }
-  //   }
-  // },
   data() {
     return {
-      isShow2:"",
-      isShow3:"",
+      isShow2: "",
+      isShow3: "",
       //用户输入的数据
       searchData: "",
       total: 0,
@@ -141,6 +141,10 @@ export default {
       multipleSelection: [],
       //page
       page: "",
+      //删除行的数据
+      row: [],
+      //存储当前行的数据
+      rowState:{}
     };
   },
   //侦听器监听页面数据变化
@@ -149,10 +153,10 @@ export default {
       if (!ne) {
         console.log("跳转啦");
         let page = this.page - 1;
-        if(this.total>1){
+        if (this.total > 1) {
           //不渲染页面停在当前页面
-          this.pagesize=1
-        }else{
+          this.pagesize = 1;
+        } else {
           this.projectList(page);
         }
       }
@@ -160,23 +164,65 @@ export default {
   },
   created() {
     this.projectList();
-    console.log(this.page,this.total)
   },
   methods: {
-    select_all(selection){
-      console.log("全选的数据",selection)
+    ...mapMutations("rowData",["alterState","delData"]),
+    //多选删除
+    select_all(selection) {
+      selection.map((item) => {
+        this.row.push(item.id);
+      });
+      console.log("全选的数据", selection);
     },
-    select(selection, row){
-    console.log("当前行的数据",row)
-  },
-    addGoods(){
-      this.$router.push("/product/addgoods")
+    //单选多选删除
+    select(selection, row) {
+      let arr = [];
+      selection.map((item) => {
+        arr.push(item.id);
+      });
+      this.row = arr;
+      console.log("当前行的数据", this.row);
     },
-    //点击添加class
-    // addColor(e){
-    //   e.target.className=e.target.className+(" "+color)
-    // },
+    //添加商品清空仓库数据
+    addGoods() {
+      this.$router.push("/product/addgoods");
+      this.delData()
+    },
+    delAll() {
+      if(this.row.length>0){
+        //批量删除
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        this.row.map((item) => {
+          //删除数据请求后台接口
+          this.delProjectList(item);
+        }).catch(()=>{
+          this.$message({
+            type:"info",
+            message:"已取消删除"
+          }
+          )
+        })
+      });
+
+      }else{
+        this.$confirm("当前未选中任何数据")
+      }
+    },
+    //编辑
+    edit(row){
+      //存储到仓库
+      console.log("当前行数据",row)
+      this.alterState(row)
+      // this.$store.commit("alterState",row)
+      this.$router.push("/product/addgoods");
+    },
+    //处理数据html标签显示界面
     removeHTMLTag,
+    //删除行数据
     open(id, row) {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
@@ -230,6 +276,7 @@ export default {
       this.page = page;
       let project = await this.$api.projectList({ page });
       this.tableData = project.data.data;
+      console.log("表格数据",this.tableData)
       //总数据和每页显示的数量
       this.pagesize = project.data.pageSize;
       this.total = project.data.total;
@@ -258,27 +305,26 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.product_pilot{
+.product_pilot {
   padding-left: 10px;
   font-weight: 700px;
-  .color{
+  .color {
     color: #999;
   }
-  .pilot{
-    &::after{
-    content: "/";
-    width: 1px;
-    height: 3px;
-    color: #999;
-    margin: 0 2px;
+  .pilot {
+    &::after {
+      content: "/";
+      width: 1px;
+      height: 3px;
+      color: #999;
+      margin: 0 2px;
+    }
   }
+  .pilot:last-child {
+    &::after {
+      content: "";
+    }
   }
-  .pilot:last-child{
-    &::after{
-    content: "";
-  }
-  }
-  
 }
 .product_info {
   margin: 10px;

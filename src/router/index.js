@@ -12,6 +12,7 @@ const Chanpin_two = () => import("../views/layout/content/product/product_list/C
 const Order=()=>import("../views/layout/content/order/Order.vue")
 const Order_two=()=>import("../views/layout/content/order/order_list/Order_two.vue")
 const Order_three=()=>import("../views/layout/content/order/order_list/Order_three.vue")
+const Order_one=()=>import("../views/layout/content/order/order_list/Order_one.vue")
 //广告分类
 import Advertisement from "../views/layout/content/advertisement/Advertisement.vue"
 // const Advertisement=()=>import("../views/layout/content/advertisement/Advertisement.vue")
@@ -73,10 +74,15 @@ const routes = [
             component:Order_two
           },
           {
-            path:"Order_three",
-            name:"Order_three",
+            path:"order_three",
+            name:"order_three",
             component:Order_three
           },
+          {
+            path:"order_one",
+            name:"order_one",
+            component:Order_one
+          }
         ]
       },
       {

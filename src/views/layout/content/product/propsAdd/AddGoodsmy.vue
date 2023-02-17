@@ -20,7 +20,9 @@ export default {
       },
     };
   },
-  created() {},
+  created() {
+    
+  },
   methods: {
     clickTree(data,node,tree){
       if(!node.parent.data){

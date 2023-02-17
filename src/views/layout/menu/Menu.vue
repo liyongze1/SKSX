@@ -36,9 +36,10 @@
               <span slot="title">订单管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="/order/order_two">选项1</el-menu-item>
-              <el-menu-item index="/order/order_three">选项2</el-menu-item>
+              <el-menu-item index="/order/order_one">订单列表</el-menu-item>
             </el-menu-item-group>
+            <el-menu-item index="/order/order_two">订单汇总</el-menu-item>
+            <el-menu-item index="/order/order_three">订单审核</el-menu-item>
           </el-submenu>
           <el-submenu index="/advertisement">
             <template slot="title">
@@ -46,8 +47,12 @@
               <span slot="title">广告分类</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="/advertisement/advertisement_two">选项1</el-menu-item>
-              <el-menu-item index="/advertisement/advertisement_three">选项2</el-menu-item>
+              <el-menu-item index="/advertisement/advertisement_two"
+                >选项1</el-menu-item
+              >
+              <el-menu-item index="/advertisement/advertisement_three"
+                >选项2</el-menu-item
+              >
             </el-menu-item-group>
           </el-submenu>
           <el-submenu index="/system">
@@ -70,30 +75,30 @@
 export default {
   data() {
     return {
-      active:"",
+      active: "",
       isShow: false,
     };
   },
-  
+
   //监听路由变化添加高亮色
-  watch:{
-    $route(to,from){
-      let{meta,path}=to
-      if(meta.activeMenu){
-        this.active=meta.activeMenu
-      }else{
-        this.active=path
+  watch: {
+    $route(to, from) {
+      let { meta, path } = to;
+      if (meta.activeMenu) {
+        this.active = meta.activeMenu;
+      } else {
+        this.active = path;
       }
-    }
+    },
   },
   //控制收缩和回放
   created() {
-    if(this.$route.meta.activeMenu){
-        this.active=this.$route.meta.activeMenu
-      }else{
-        this.active=this.$route.path
-      }
-      console.log(this.$route)
+    if (this.$route.meta.activeMenu) {
+      this.active = this.$route.meta.activeMenu;
+    } else {
+      this.active = this.$route.path;
+    }
+    console.log(this.$route);
     this.$bus.$on("isShow", (e) => {
       this.isShow = !e;
     });
