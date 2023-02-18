@@ -1,5 +1,6 @@
 <template>
   <div class="Chanpin_classify">
+    <breadcrumb></breadcrumb>
     <div class="category">
       <div class="wrapper">
         <div class="title">产品类目管理</div>
@@ -200,7 +201,7 @@ export default {
           twoArr.push(item);
         }
       });
-      console.log(oneArr, twoArr);
+
       //继续遍历数组 拿到一级的标识与二级标识比较一样就是对应一级的二级
       oneArr.map((item) => {
         twoArr.map((ele) => {

@@ -1,10 +1,6 @@
 <template>
   <div class="product_list">
-    <div class="product_pilot">
-      <router-link to="/home" class="pilot">首页</router-link>
-      <router-link to="/product" class="pilot">产品管理</router-link>
-      <router-link to="/chanpin" class="pilot color">产品列表</router-link>
-    </div>
+    <breadcrumb></breadcrumb>
     <div class="product_info">
       <div class="product_info_top">
         <div class="product_name">
@@ -164,6 +160,7 @@ export default {
   },
   created() {
     this.projectList();
+    console.log("-----------------",null)
   },
   methods: {
     ...mapMutations("rowData",["alterState","delData"]),

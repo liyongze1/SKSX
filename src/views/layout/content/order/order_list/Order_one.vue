@@ -1,5 +1,6 @@
 <template>
   <div class="order" ref="order">
+    <breadcrumb></breadcrumb>
     <div class="order_top_box">
       <div class="order_id_box">
         <div class="order_id">
@@ -272,7 +273,6 @@ export default {
     },
     //禁用按钮
     selectable(row, index) {
-      console.log(row)
       if (row.huizongStatus == 1) {
         return true;
       } else {

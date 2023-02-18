@@ -31,34 +31,49 @@ const routes = [
     path: '/',
     component: Layout,
     redirect:"/home",
+    meta:{
+      title:"首页"
+    },
     children: [
       {
         path: "/home",
         name: "home",
-        component: Home
+        component: Home,
+        meta:{
+          title:"首页"
+        }
       }
       , {
         path: "/product",
         name: "product",
         redirect: '/product/chanpin',
         component: Product,
+        meta:{
+          title:"产品管理"
+        },
         children:[{
           path: "chanpin",
           name: "chanpin",
           component: Chanpin,
+          meta:{
+            title:"产品列表"
+          },
         },
         {
           path:"addgoods",
           name:"addgoods",
           component:index,
           meta:{//配置高亮标识
-            activeMenu:"/product/chanpin"
+            activeMenu:"/product/chanpin",
           }
         },
         {
           path: "chanpin_two",
           name: "chanpin_two",
           component: Chanpin_two,
+          meta:{
+            title:"产品分类"
+          }
         },
       ]
       },
@@ -67,21 +82,34 @@ const routes = [
         path: "/order",
         name: "order",
         component: Order,
+        redirect: '/order/order_one',
+        meta:{
+          title:"订单管理"
+        },
         children:[
           {
             path:"order_two",
             name:"order_two",
-            component:Order_two
+            component:Order_two,
+            meta:{
+              title:"订单汇总"
+            }
           },
           {
             path:"order_three",
             name:"order_three",
-            component:Order_three
+            component:Order_three,
+            meta:{
+              title:"订单审核"
+            }
           },
           {
             path:"order_one",
             name:"order_one",
-            component:Order_one
+            component:Order_one,
+            meta:{
+              title:"订单列表"
+            }
           }
         ]
       },
@@ -89,6 +117,9 @@ const routes = [
         path:"/advertisement",
         name:"advertisement",
         component:Advertisement,
+        meta:{
+          title:"广告分类"
+        },
         children:[
           {
             path:"advertisement_two",
@@ -106,6 +137,9 @@ const routes = [
         path:"/system",
         name:"system",
         component:System,
+        meta:{
+          title:"系统管理"
+        },
         children:[
           {
             path:"system_two",

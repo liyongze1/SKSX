@@ -1,5 +1,6 @@
 <template>
   <div class="order">
+    <breadcrumb></breadcrumb>
     <div class="order_top_box">
       <div class="order_id_box">
         <div class="order_id">
@@ -129,6 +130,7 @@
 </template>
 
 <script>
+import "lodash"
 import Pangination from "@/components/Pangination.vue";
 export default {
   components: {
@@ -138,7 +140,24 @@ export default {
     return {
       //导出
       DetailsForm:[{}], //导出数据
-      json_fields:{},//每列开头
+      json_fields:{
+        "汇总单编号":{
+          field:"orderNum",
+          callback:value=>{
+            return "&nbsp;"+value
+          }
+        },
+        "汇总人":"operator",
+        "联系电话":"phone",
+        "汇总时间":{
+          field:"time",
+          callback:value=>{
+            //对导出的表格时间进行处理
+            return this.$moment(value).format("YYYY-MM-DD HH:mm:ss")
+          }
+        },
+        "汇总单总价格":"totalPrice"
+      },//每列开头
       title:"商品信息",
       pageSize: 1,
       total: 10,
@@ -230,6 +249,7 @@ export default {
       console.log("当前行的id-------------", scope.row.id);
     },
     selectionChange(selection) {
+      this.DetailsForm=_.cloneDeep(selection)
       //批量撤销
       let sele = [];
       selection.map((item) => {
