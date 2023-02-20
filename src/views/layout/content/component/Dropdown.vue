@@ -6,11 +6,9 @@
   </span>
   <el-dropdown-menu slot="dropdown">
     <el-dropdown-item command="1">中文</el-dropdown-item>
-    <el-dropdown-item command="2">英文</el-dropdown-item>
+    <el-dropdown-item command="2">English</el-dropdown-item>
   </el-dropdown-menu>
 </el-dropdown>|
-<!-- {{ $t("massage.userName") }}
-{{ $t("massage.passWord") }} -->
   </div>
 </template>
 <script>

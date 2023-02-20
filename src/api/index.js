@@ -1,5 +1,7 @@
 import base from "./base.js"
 import axios from "../utils/axios.js"
+import {userLogin,userPermissionn} from "./login/login.js"
+import {orderTable,orderGather,orderList,orderCancel,orderDetails} from "./order/order.js"
 const api={
     //主页总销售的数据
     homeResult(){
@@ -57,31 +59,14 @@ const api={
     alterClass(params){
         return axios.get(base.alterClass,{params});
     },
-    //订单管理 page
-    orderTable(params){
-        return axios.get(base.orderTable,{params});
-    },
-    //订单汇总 id标识
-    /**
-     * 
-     * 批量汇总  id标识  
-    sql =`delete from project where id in (101,102,103)`;
-    前端数据接口：字符串  (数组转字符串)
-     */
-    orderGather(params){
-        return axios.get(base.orederGather,{params});
-    },
-    //汇总清单列表 page页码
-    orderList(params){
-        return axios.get(base.orderList,{params});
-    },
-    //撤销汇总 id
-    orderCancel(params){
-        return axios.get(base.orderCancel,{params});
-    },
-    // 订单详情
-    orderDetails(){
-        return axios.get(base.orderDetails);
-    }
+    //订单列表
+    orderTable,
+    orderGather,
+    orderList,
+    orderCancel,
+    orderDetails,
+    //订单汇总 id标识  
+    userLogin,
+    userPermissionn,
 }
 export default api

@@ -1,6 +1,12 @@
+// import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
+let bb=require("element-ui/lib/locale/lang/zh-CN")
 module.exports={
     massage:{
-        userName:"请输入用户名",
-        passWord:"请输入密码",
-    }
+        home:"首页",
+        productManagement:"产品管理",
+        orderManagement:"订单管理",
+        advertisingClassification:"广告分类",
+        systemManagement:"系统管理"
+    },
+    ...bb
 }

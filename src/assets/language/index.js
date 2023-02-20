@@ -9,4 +9,5 @@ const i18n={
         en: require('./language/local_en'), // 英语 //要多少语言就自己添加多少
       }
 }
+
 export default i18n

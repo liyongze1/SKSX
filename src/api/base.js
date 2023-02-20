@@ -28,16 +28,6 @@ const base={
     delClass:"/api/content/deleteContentCategoryById",
     //新增一级类目接口 接收一个name
     newOneClass:"/api/itemCategory/insertCategory",
-    //订单列表数据获取  page
-    orderTable:"/api/order/list",
-    //订单汇总 id标识
-    orederGather:"/api/order/changeStatus",
-    //汇总清单列表 page
-    orderList:"/api/order/collect",
-    //撤销汇总 id
-    orderCancel:"/api/order/cancel",
-    //订单详情
-    orderDetails:"/api/order/list/detail"
 }
 //单一导出 图片上传
 export const images="/api/upload"

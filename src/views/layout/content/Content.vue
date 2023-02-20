@@ -18,14 +18,17 @@
       <div class="right_header_info">
         <ul class="right_header_content">
           <li class="info_item">
-            <span style="display: inline-block; width: 190px">{{ time }}</span>
+            <span style="display: inline-block; width: 200px">{{ time }}</span>
             <span style="display: inline-block; margin: 0 5px">|</span>
           </li>
           <li class="info_item">
             <Dropdown></Dropdown>
           </li>
-          <li class="info_item">用户名 |</li>
-          <li class="info_item el-icon-switch-button">退出</li>
+          <li class="info_item">
+            <span >欢迎{{userinfo.userName}}</span> |
+          </li>
+          <li class="info_item el-icon-switch-button" style="cursor: pointer;">
+            <span style="color:#fff; font-size: 16px; font-weight: 700;" @click="tuichu">退出</span></li>
         </ul>
       </div>
     </div>
@@ -36,15 +39,17 @@
 <script>
 import dayjs from "dayjs";
 import Dropdown from './component/Dropdown.vue';
+import { mapMutations, mapState } from 'vuex';
+// import { mapState,mapMutations} from "vuex";
 export default {
   components: { Dropdown },
-  // computed:{
-  //   time(){
-  //     return dayjs().format("YYYY年MM月DD日 HH:mm:ss")
-  //   }
-  // },
+  computed:{
+    ...mapState("login",["userinfo"])
+    // ...mapState
+  },
   data() {
     return {
+      loginShow:"",
       time: "",
       isShow: true,
       small: false,
@@ -61,6 +66,7 @@ export default {
 
   },
   mounted() {
+   
     let setTime = setInterval(
       function () {
         this.time = dayjs().format("YYYY年MM月DD日 HH:mm:ss");
@@ -79,6 +85,19 @@ export default {
   //   this.setTime=null
   // },
   methods: {
+    ...mapMutations("menu",["removeDyMenuList"]),
+    ...mapMutations("login",["delUserinfo"]),
+    //清楚菜单导航
+     //退出返回登陆页
+     tuichu(){
+      //删除仓库数据 仓库名
+      this.removeDyMenuList()
+      this.delUserinfo()
+      localStorage.removeItem("info");
+      //清除用户名
+      // this.$store.commit("menu/removeDyMenuList")
+      this.$router.push("/login")
+    },
     showChange() {
       this.isShow = !this.isShow;
       this.small = !this.small;

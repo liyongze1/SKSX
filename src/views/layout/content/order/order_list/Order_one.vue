@@ -2,7 +2,8 @@
   <div class="order" ref="order">
     <breadcrumb></breadcrumb>
     <div class="order_top_box">
-      <div class="order_id_box">
+      <el-row>
+        <el-col :span="14"><div class="order_id_box">
         <div class="order_id">
           <span class="aaa">订单编号:</span>
           <el-input
@@ -59,16 +60,16 @@
             ></el-cascader>
           </div>
         </div>
-      </div>
-      <div class="order_btn">
-        <el-button type="primary">查询</el-button>
-      </div>
+      </div></el-col>
+        <el-col :span="10"
+           class="abc"><el-button type="primary">查询</el-button></el-col>
+      </el-row>
     </div>
     <div class="oreder_midst">
       <el-button type="primary" class="aaaa" @click="orderGther"
         >订单汇总</el-button
       >
-       <download-excel
+      <download-excel
         class="export-excel-wrapper"
         :data="DetailsForm"
         :fields="json_fields"
@@ -88,7 +89,7 @@
         ref="sel"
         @selection-change="change"
       >
-        <el-table-column  type="selection" ref="one" :selectable="selectable"/>
+        <el-table-column type="selection" ref="one" :selectable="selectable" />
         <el-table-column
           prop="code"
           label="订单编号"
@@ -139,7 +140,7 @@
 </template>
 
 <script>
-import "lodash"
+import "lodash";
 import Pangination from "@/components/Pangination.vue";
 import Drawer from "./son/Drawer.vue";
 export default {
@@ -147,39 +148,39 @@ export default {
     Pangination,
     Drawer,
   },
-  watch:{
-    dt(val){
-      if(val){
-        this.drawerSize = this.$refs.order.clientWidth-10;
+  watch: {
+    dt(val) {
+      if (val) {
+        this.drawerSize = this.$refs.order.clientWidth - 10;
       }
-    }
+    },
   },
   data() {
     return {
       //vue导出excel
-      DetailsForm:[{}],//导出的数据
-      json_fields:{
-        "订单编号":{
-          field:"code",
-          callback:value=>{
-            return "&nbsp;"+value
-          }
+      DetailsForm: [{}], //导出的数据
+      json_fields: {
+        订单编号: {
+          field: "code",
+          callback: (value) => {
+            return "&nbsp;" + value;
+          },
         },
-        "下单人":"ordername",
-        "所属单位":"company",
-        "联系电话":{
-          field:"phone",
-          callback:value=>{
-            return "&nbsp;"+value
-          }
+        下单人: "ordername",
+        所属单位: "company",
+        联系电话: {
+          field: "phone",
+          callback: (value) => {
+            return "&nbsp;" + value;
+          },
         },
-        "预定时间":"yudingTime",
-        "订单总价格":"price",
-        "汇总状态":"huizongStatus",
-      },//映射字段
-      title:"商品信息",//表格标题
+        预定时间: "yudingTime",
+        订单总价格: "price",
+        汇总状态: "huizongStatus",
+      }, //映射字段
+      title: "商品信息", //表格标题
       //抽屉大小
-      dt:false,
+      dt: false,
       drawerSize: 0,
       pageSize: 1,
       total: 10,
@@ -216,19 +217,19 @@ export default {
   },
   mounted() {
     //传递抽屉大小
-    this.drawerSize = this.$refs.order.clientWidth-10;
+    this.drawerSize = this.$refs.order.clientWidth - 10;
   },
   methods: {
     //导出提示
-    derive(){
-    this.$message({
-      type:"success",
-      message:"导出成功"
-    })
+    derive() {
+      this.$message({
+        type: "success",
+        message: "导出成功",
+      });
     },
     //点击打开抽屉
     orderDecs() {
-      this.dt=true
+      this.dt = true;
       this.$refs.drawer.drawer = true;
     },
     //点击汇总ids
@@ -240,10 +241,10 @@ export default {
     4. 编号随机生成
     */
     orderGther() {
-      this.DetailsForm.map(row=>{
+      this.DetailsForm.map((row) => {
         console.log();
-        this.$refs.sel.toggleRowSelection(row,true)
-      })
+        this.$refs.sel.toggleRowSelection(row, true);
+      });
       if (this.getherDataID.length >= 2) {
         //获取当前选中的订单 提交汇总订单  修改视图
         this.orderGatherData(this.getherDataID.join());
@@ -256,15 +257,17 @@ export default {
     //点击多选框
     change(selection) {
       //导出Excel
-      this.DetailsForm=_.cloneDeep(selection)
-      this.DetailsForm.map(item=>{
-        item.yudingTime=this.$moment(item.yudingTime).format("YYYY-MM-DD HH:mm:ss")
-        if(item.huizongStatus==1){
-          item.huizongStatus="未汇总"
-        }else{
-          item.huizongStatus="汇总"
+      this.DetailsForm = _.cloneDeep(selection);
+      this.DetailsForm.map((item) => {
+        item.yudingTime = this.$moment(item.yudingTime).format(
+          "YYYY-MM-DD HH:mm:ss"
+        );
+        if (item.huizongStatus == 1) {
+          item.huizongStatus = "未汇总";
+        } else {
+          item.huizongStatus = "汇总";
         }
-      })
+      });
       let arr = [];
       selection.map((item) => {
         arr.push(item.id);
@@ -361,7 +364,13 @@ export default {
     }
   }
 }
-.export-excel-wrapper{
+.abc{
+  position: absolute;
+    top: 50px;
+    left: 600px;
+}
+.export-excel-wrapper {
   display: inline-block;
 }
+
 </style>

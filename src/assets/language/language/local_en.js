@@ -1,6 +1,14 @@
+
+// import enLocale from 'element-ui/lib/locale/lang/en'
+let aa=require("element-ui/lib/locale/lang/en")
 module.exports={
     massage:{
-        userName:"please input userName",
-        passWord:"please input passWord",
-    }
+        home:"homePage",
+        productManagement:"productManagement",
+        orderManagement:"orderManagement",
+        advertisingClassification:"advertisingClassification",
+        systemManagement:"systemManagement"
+    },
+    ...aa
+    
 }

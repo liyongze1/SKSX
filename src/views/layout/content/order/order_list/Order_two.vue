@@ -2,67 +2,71 @@
   <div class="order">
     <breadcrumb></breadcrumb>
     <div class="order_top_box">
-      <div class="order_id_box">
-        <div class="order_id">
-          <span class="aaa">订单编号:</span>
-          <el-input
-            v-model="input"
-            placeholder="输入品牌名称"
-            class="oreder_id_input inp"
-          ></el-input>
-        </div>
-        <div class="appointment_box">
-          <span></span>
-          <span class="demonstration">汇总时间:</span>
-          <el-date-picker
-            v-model="value1"
-            type="date"
-            placeholder="选择日期"
-            class="oreder_id_input"
-          >
-          </el-date-picker
-          >至
-          <el-time-select
-            v-model="time"
-            :picker-options="{
-              start: '08:30',
-              step: '00:15',
-              end: '18:30',
-            }"
-            placeholder="选择时间"
-          >
-          </el-time-select>
-        </div>
-        <div class="down_list order_id">
-          <div class="down_list_user" style="margin-right: 10px">
-            <span class="aaa">下单人:</span>
-            <el-input
-              v-model="userInput"
-              placeholder="输入下单人"
-              class="oreder_id_input inp"
-              style="margin-left: 25px"
-            ></el-input>
+      <el-row>
+        <el-col :span="14">
+          <div class="order_id_box">
+            <div class="order_id">
+              <span class="aaa">订单编号:</span>
+              <el-input
+                v-model="input"
+                placeholder="输入品牌名称"
+                class="oreder_id_input inp"
+              ></el-input>
+            </div>
+            <div class="appointment_box">
+              <span></span>
+              <span class="demonstration">汇总时间:</span>
+              <el-date-picker
+                v-model="value1"
+                type="date"
+                placeholder="选择日期"
+                class="oreder_id_input"
+              >
+              </el-date-picker
+              >至
+              <el-time-select
+                v-model="time"
+                :picker-options="{
+                  start: '08:30',
+                  step: '00:15',
+                  end: '18:30',
+                }"
+                placeholder="选择时间"
+              >
+              </el-time-select>
+            </div>
+            <div class="down_list order_id">
+              <div class="down_list_user" style="margin-right: 10px">
+                <span class="aaa">下单人:</span>
+                <el-input
+                  v-model="userInput"
+                  placeholder="输入下单人"
+                  class="oreder_id_input inp"
+                  style="margin-left: 25px"
+                ></el-input>
+              </div>
+              <div class="order_id">
+                <span class="aaa">所属单位:</span>
+                <el-input
+                  placeholder="输入单位名称"
+                  class="oreder_id_input inp"
+                ></el-input>
+              </div>
+            </div>
+            <div class="result_data">
+              <div class="block">
+                汇总状态：<el-cascader
+                  v-model="value"
+                  :options="options"
+                ></el-cascader>
+              </div>
+            </div>
           </div>
-          <div class="order_id">
-            <span class="aaa">所属单位:</span>
-            <el-input
-              placeholder="输入单位名称"
-              class="oreder_id_input inp"
-            ></el-input>
-          </div>
-        </div>
-        <div class="result_data">
-          <div class="block">
-            汇总状态：<el-cascader
-              v-model="value"
-              :options="options"
-            ></el-cascader>
-          </div>
-        </div>
-      </div>
-      <div class="order_btn">
-        <el-button type="primary">查询</el-button>
-      </div>
+        </el-col>
+        <el-col :span="10" class="abc">
+            <el-button type="primary">查询</el-button>
+        </el-col>
+      </el-row>
     </div>
     <div class="oreder_midst">
       <download-excel
@@ -130,7 +134,7 @@
 </template>
 
 <script>
-import "lodash"
+import "lodash";
 import Pangination from "@/components/Pangination.vue";
 export default {
   components: {
@@ -139,26 +143,26 @@ export default {
   data() {
     return {
       //导出
-      DetailsForm:[{}], //导出数据
-      json_fields:{
-        "汇总单编号":{
-          field:"orderNum",
-          callback:value=>{
-            return "&nbsp;"+value
-          }
+      DetailsForm: [{}], //导出数据
+      json_fields: {
+        汇总单编号: {
+          field: "orderNum",
+          callback: (value) => {
+            return "&nbsp;" + value;
+          },
         },
-        "汇总人":"operator",
-        "联系电话":"phone",
-        "汇总时间":{
-          field:"time",
-          callback:value=>{
+        汇总人: "operator",
+        联系电话: "phone",
+        汇总时间: {
+          field: "time",
+          callback: (value) => {
             //对导出的表格时间进行处理
-            return this.$moment(value).format("YYYY-MM-DD HH:mm:ss")
-          }
+            return this.$moment(value).format("YYYY-MM-DD HH:mm:ss");
+          },
         },
-        "汇总单总价格":"totalPrice"
-      },//每列开头
-      title:"商品信息",
+        汇总单总价格: "totalPrice",
+      }, //每列开头
+      title: "商品信息",
       pageSize: 1,
       total: 10,
       //输入框
@@ -211,9 +215,7 @@ export default {
     },
   },
   methods: {
-    derive(){
-      
-    },
+    derive() {},
     //获取汇总清单的列表
     async orderList(page = 1) {
       this.page = page;
@@ -249,7 +251,7 @@ export default {
       console.log("当前行的id-------------", scope.row.id);
     },
     selectionChange(selection) {
-      this.DetailsForm=_.cloneDeep(selection)
+      this.DetailsForm = _.cloneDeep(selection);
       //批量撤销
       let sele = [];
       selection.map((item) => {
@@ -328,7 +330,12 @@ export default {
       text-align: center;
     }
   }
-  .btnRevoke{
+  .abc{
+  position: absolute;
+    top: 50px;
+    left: 600px;
+}
+  .btnRevoke {
     margin-right: 20px;
     display: inline-block;
   }

@@ -8,63 +8,12 @@
           background-color="#112f50"
           text-color="#fff"
           active-text-color="#ffd04b"
-          router
           :collapse="isShow"
         >
           <el-menu-item class="sk_bkcolor">
             <span class="sk_title">首客生鲜管理系统</span>
           </el-menu-item>
-
-          <el-menu-item index="/home">
-            <i class="iconfont icon-zhuye"></i>
-            <span class="home">首页</span>
-          </el-menu-item>
-
-          <el-submenu index="/product">
-            <template slot="title">
-              <i class="iconfont icon-chanpinguanli"></i>
-              <span>产品管理</span>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="/product/chanpin">产品列表</el-menu-item>
-              <el-menu-item index="/product/chanpin_two">产品分类</el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
-          <el-submenu index="/order">
-            <template slot="title">
-              <i class="iconfont icon-qian4"></i>
-              <span slot="title">订单管理</span>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="/order/order_one">订单列表</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item index="/order/order_two">订单汇总</el-menu-item>
-            <el-menu-item index="/order/order_three">订单审核</el-menu-item>
-          </el-submenu>
-          <el-submenu index="/advertisement">
-            <template slot="title">
-              <i class="el-icon-document"></i>
-              <span slot="title">广告分类</span>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="/advertisement/advertisement_two"
-                >选项1</el-menu-item
-              >
-              <el-menu-item index="/advertisement/advertisement_three"
-                >选项2</el-menu-item
-              >
-            </el-menu-item-group>
-          </el-submenu>
-          <el-submenu index="/system">
-            <template slot="title">
-              <i class="el-icon-setting"></i>
-              <span slot="title">系统管理</span>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="/system/system_two">选项1</el-menu-item>
-              <el-menu-item index="/system/system_three">选项2</el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
+          <MenuList :data="dyMenuList"></MenuList>
         </el-menu>
       </el-col>
     </el-row>
@@ -72,22 +21,30 @@
 </template>
 
 <script>
+import MenuList from './MenuList.vue';
+import { mapState } from 'vuex';
 export default {
+  components:{
+    MenuList
+  },
   data() {
     return {
       active: "",
       isShow: false,
+      data: "",
     };
   },
-
+  computed:{
+    ...mapState("menu",["dyMenuList"])
+  },
   //监听路由变化添加高亮色
   watch: {
     $route(to, from) {
-      let { meta, path } = to;
+      let { meta, name } = to;
       if (meta.activeMenu) {
         this.active = meta.activeMenu;
       } else {
-        this.active = path;
+        this.active = name;
       }
     },
   },
